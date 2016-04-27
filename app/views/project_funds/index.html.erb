@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Project Funds</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Source</th>
+      <th>Amount</th>
+      <th>References</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @project_funds.each do |project_fund| %>
+      <tr>
+        <td><%= project_fund.source %></td>
+        <td><%= project_fund.amount %></td>
+        <td><%= project_fund.references %></td>
+        <td><%= link_to 'Show', project_fund %></td>
+        <td><%= link_to 'Edit', edit_project_fund_path(project_fund) %></td>
+        <td><%= link_to 'Destroy', project_fund, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Project fund', new_project_fund_path %>
