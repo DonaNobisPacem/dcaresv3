@@ -1,5 +1,5 @@
 FactoryGirl.define do
   factory :status do
-    description "MyString"
+    description {FFaker::Unit.temperature_name}
   end
 end

@@ -5,7 +5,7 @@ RSpec.describe "project_funds/show", type: :view do
     @project_fund = assign(:project_fund, ProjectFund.create!(
       :source => 1,
       :amount => "9.99",
-      :references => ""
+      :project => nil
     ))
   end
 

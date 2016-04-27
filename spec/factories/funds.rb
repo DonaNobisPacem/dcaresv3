@@ -1,5 +1,5 @@
 FactoryGirl.define do
   factory :fund do
-    description "MyString"
+    description {FFaker::Company.name}
   end
 end

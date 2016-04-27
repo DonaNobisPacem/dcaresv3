@@ -1,16 +1,16 @@
 FactoryGirl.define do
   factory :project do
-    title "MyString"
+    title {FFaker::Product.product}
     abc "9.99"
     status 1
     bidding_status 1
-    contractor "MyString"
+    contractor {FFaker::Company.name}
     progress 1
-    tdc "2016-04-27 11:14:55"
-    noa "2016-04-27 11:14:55"
-    ntp "2016-04-27 11:14:55"
-    adc "2016-04-27 11:14:55"
+    tdc DateTime.now
+    noa DateTime.now
+    ntp DateTime.now
+    adc DateTime.now
     cost "9.99"
-    university nil
+    university
   end
 end

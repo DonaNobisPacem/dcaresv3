@@ -6,12 +6,12 @@ RSpec.describe "project_funds/index", type: :view do
       ProjectFund.create!(
         :source => 1,
         :amount => "9.99",
-        :references => ""
+        :project => nil
       ),
       ProjectFund.create!(
         :source => 1,
         :amount => "9.99",
-        :references => ""
+        :project => nil
       )
     ])
   end
@@ -20,6 +20,6 @@ RSpec.describe "project_funds/index", type: :view do
     render
     assert_select "tr>td", :text => 1.to_s, :count => 2
     assert_select "tr>td", :text => "9.99".to_s, :count => 2
-    assert_select "tr>td", :text => "".to_s, :count => 2
+    assert_select "tr>td", :text => nil.to_s, :count => 2
   end
 end

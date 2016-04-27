@@ -3,7 +3,7 @@ class CreateProjectFunds < ActiveRecord::Migration
     create_table :project_funds do |t|
       t.integer :source
       t.decimal :amount, precision: 15, scale: 2
-      t.project :references
+      t.references :project, index: true, foreign_key: true
 
       t.timestamps null: false
     end

@@ -9,8 +9,11 @@ require 'capybara/rspec'
 require 'capybara/rails'
 require 'carrierwave/test/matchers'
 require 'database_cleaner'
+require 'public_activity/testing'
 require 'simplecov'
+
 SimpleCov.start
+PublicActivity.enabled = false
 # Add additional requires below this line. Rails is not loaded until this point!
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
@@ -64,11 +67,16 @@ RSpec.configure do |config|
   config.before(:suite) do
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with(:truncation)
+    Rails.application.load_seed
+  end
+
+  config.before :each do
+    Project.reindex
   end
 
   config.after(:all) do
     if Rails.env.test? 
-      FileUtils.rm_rf(Dir["#{Rails.root}/public/uploads/contracts"])
+      FileUtils.rm_rf(Dir["#{Rails.root}/public/uploads/project_attachments"])
       FileUtils.rm_rf(Dir["#{Rails.root}/public/uploads/tmp"])
     end 
   end

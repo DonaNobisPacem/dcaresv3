@@ -1,5 +1,5 @@
 FactoryGirl.define do
   factory :university do
-    description "MyString"
+    description {FFaker::Education.school}
   end
 end

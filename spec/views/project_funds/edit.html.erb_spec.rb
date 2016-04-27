@@ -5,7 +5,7 @@ RSpec.describe "project_funds/edit", type: :view do
     @project_fund = assign(:project_fund, ProjectFund.create!(
       :source => 1,
       :amount => "9.99",
-      :references => ""
+      :project => nil
     ))
   end
 
@@ -18,7 +18,7 @@ RSpec.describe "project_funds/edit", type: :view do
 
       assert_select "input#project_fund_amount[name=?]", "project_fund[amount]"
 
-      assert_select "input#project_fund_references[name=?]", "project_fund[references]"
+      assert_select "input#project_fund_project_id[name=?]", "project_fund[project_id]"
     end
   end
 end
