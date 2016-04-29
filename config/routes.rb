@@ -1,11 +1,21 @@
 Rails.application.routes.draw do
+  
+  resources :bids
+  root 'universities#index'
+
   resources :project_funds
   resources :project_attachments
   resources :projects
   resources :funds
   resources :universities
   resources :statuses
+
   devise_for :users
+  scope "/admin" do
+    resources :users
+  end
+
+  get '/admin_panel' => 'users#admin'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

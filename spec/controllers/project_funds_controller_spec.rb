@@ -23,12 +23,24 @@ RSpec.describe ProjectFundsController, type: :controller do
   # This should return the minimal set of attributes required to create a valid
   # ProjectFund. As you add validations to ProjectFund, be sure to
   # adjust the attributes here as well.
+  before(:each) do
+    @project = FactoryGirl.create(:project)
+  end
+
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    {
+      source: 1,
+      amount: "9.99",
+      project_id: @project.id
+    }
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    {
+      source: nil,
+      amount: "9.99",
+      project_id: nil
+    }
   }
 
   # This should return the minimal set of values that should be in the session
@@ -103,14 +115,18 @@ RSpec.describe ProjectFundsController, type: :controller do
   describe "PUT #update" do
     context "with valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        {
+          source: 2,
+          amount: "9.99",
+          project_id: @project.id
+        }
       }
 
       it "updates the requested project_fund" do
         project_fund = ProjectFund.create! valid_attributes
         put :update, {:id => project_fund.to_param, :project_fund => new_attributes}, valid_session
         project_fund.reload
-        skip("Add assertions for updated state")
+        expect(assigns(:project_fund).source).to eq(new_attributes[:source])
       end
 
       it "assigns the requested project_fund as @project_fund" do

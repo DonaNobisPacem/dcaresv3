@@ -1,5 +1,5 @@
 class Project < ActiveRecord::Base
-  belongs_to :university
+  belongs_to :university, inverse_of: :projects
 
   searchkick
   acts_as_xlsx

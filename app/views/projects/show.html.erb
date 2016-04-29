@@ -1,64 +1,18 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Title:</strong>
-  <%= @project.title %>
-</p>
+<% if @project.status_desc == "For Bidding" %>
+  <%= render "show_for_bidding" %>
+<% elsif @project.status_desc == "Ongoing" %>
+  <%= render "show_ongoing" %>
+<% elsif @project.status_desc == "Completed" %>
+  <%= render "show_completed" %>
+<% else%>
+  <h1 class="text-center"><strong>Something has gone wrong.</strong></h1>
+<% end %>
 
-<p>
-  <strong>Abc:</strong>
-  <%= @project.abc %>
-</p>
+<hr>
 
-<p>
-  <strong>Status:</strong>
-  <%= @project.status %>
-</p>
-
-<p>
-  <strong>Bidding status:</strong>
-  <%= @project.bidding_status %>
-</p>
-
-<p>
-  <strong>Contractor:</strong>
-  <%= @project.contractor %>
-</p>
-
-<p>
-  <strong>Progress:</strong>
-  <%= @project.progress %>
-</p>
-
-<p>
-  <strong>Tdc:</strong>
-  <%= @project.tdc %>
-</p>
-
-<p>
-  <strong>Noa:</strong>
-  <%= @project.noa %>
-</p>
-
-<p>
-  <strong>Ntp:</strong>
-  <%= @project.ntp %>
-</p>
-
-<p>
-  <strong>Adc:</strong>
-  <%= @project.adc %>
-</p>
-
-<p>
-  <strong>Cost:</strong>
-  <%= @project.cost %>
-</p>
-
-<p>
-  <strong>University:</strong>
-  <%= @project.university %>
-</p>
-
+<div class="pull-right">
 <%= link_to 'Edit', edit_project_path(@project) %> |
 <%= link_to 'Back', projects_path %>
+</div>

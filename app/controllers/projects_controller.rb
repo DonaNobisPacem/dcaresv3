@@ -4,7 +4,10 @@ class ProjectsController < ApplicationController
   # GET /projects
   # GET /projects.json
   def index
-    @projects = Project.all
+    @projects = Project.all.order('created_at desc')
+    @for_bidding = @projects.where(status: 1)
+    @ongoing = @projects.where(status: 2)
+    @completed = @projects.where(status: 3)
   end
 
   # GET /projects/1

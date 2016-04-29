@@ -1,9 +1,13 @@
-<p id="notice"><%= notice %></p>
+<h1 class="text-center"><strong><%= @university.description %>'s Projects</strong></h1>
 
-<p>
-  <strong>Description:</strong>
-  <%= @university.description %>
-</p>
-
-<%= link_to 'Edit', edit_university_path(@university) %> |
-<%= link_to 'Back', universities_path %>
+<div class="row">
+	<div class="col-md-4">
+		<%= render "for_bidding" %>
+	</div>
+	<div class="col-md-4">
+		<%= render "ongoing" %>
+	</div>
+	<div class="col-md-4">
+		<%= render "completed" %>
+	</div>
+</div>

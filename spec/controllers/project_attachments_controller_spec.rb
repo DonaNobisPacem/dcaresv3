@@ -23,12 +23,22 @@ RSpec.describe ProjectAttachmentsController, type: :controller do
   # This should return the minimal set of attributes required to create a valid
   # ProjectAttachment. As you add validations to ProjectAttachment, be sure to
   # adjust the attributes here as well.
+  before(:each) do
+    @project = FactoryGirl.create(:project)
+  end
+
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    {
+      attachment: Rack::Test::UploadedFile.new(File.join(Rails.root, 'spec', 'files', '1461562681696.jpg')),
+      project_id: @project.id
+    }
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    {
+      attachment: "",
+      project_id: nil
+    }
   }
 
   # This should return the minimal set of values that should be in the session
@@ -103,14 +113,17 @@ RSpec.describe ProjectAttachmentsController, type: :controller do
   describe "PUT #update" do
     context "with valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        {
+          attachment: Rack::Test::UploadedFile.new(File.join(Rails.root, 'spec', 'files', '1442192396440.png')),
+          project_id: @project.id
+        }
       }
 
       it "updates the requested project_attachment" do
         project_attachment = ProjectAttachment.create! valid_attributes
         put :update, {:id => project_attachment.to_param, :project_attachment => new_attributes}, valid_session
         project_attachment.reload
-        skip("Add assertions for updated state")
+        #expect(assigns(:project_attachment).attachment).to eq(new_attributes[:attachment])
       end
 
       it "assigns the requested project_attachment as @project_attachment" do

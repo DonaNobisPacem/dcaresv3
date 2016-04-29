@@ -24,11 +24,15 @@ RSpec.describe StatusesController, type: :controller do
   # Status. As you add validations to Status, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    {
+      description: "Status 1"
+    }
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    {
+      description: ""
+    }
   }
 
   # This should return the minimal set of values that should be in the session
@@ -40,7 +44,7 @@ RSpec.describe StatusesController, type: :controller do
     it "assigns all statuses as @statuses" do
       status = Status.create! valid_attributes
       get :index, {}, valid_session
-      expect(assigns(:statuses)).to eq([status])
+      expect(assigns(:statuses)).to eq(Status.all)
     end
   end
 
@@ -103,14 +107,16 @@ RSpec.describe StatusesController, type: :controller do
   describe "PUT #update" do
     context "with valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        {
+          description: "Status 2"
+        }
       }
 
       it "updates the requested status" do
         status = Status.create! valid_attributes
         put :update, {:id => status.to_param, :status => new_attributes}, valid_session
         status.reload
-        skip("Add assertions for updated state")
+        expect(assigns(:status).description).to eq(new_attributes[:description])
       end
 
       it "assigns the requested status as @status" do

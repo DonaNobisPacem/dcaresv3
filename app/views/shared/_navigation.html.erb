@@ -1,10 +1,15 @@
 <% if user_signed_in? %>
 	<nav class="navbar navbar-default navbar-fixed-top">
 		<div class="container-fluid">
+		
 		    <div class="navbar-header">
 				<%= link_to image_tag('upseal.png', :class => "navbar-brand"), root_path %>
 		    </div>
+
 		    <div class="collapse navbar-collapse">
+
+		    	<%= render "shared/search" %>
+
 		    	<ul class="nav navbar-nav">
 		    		<li class="dropdown">
 			     		<%= link_to '<i class="fa fa-university"></i> Universities <i class="fa fa-caret-down"></i>'.html_safe, universities_path, :id => 'campusdrop', :'data-toggle' => 'dropdown', :class => 'dropdown-toggle' %>
@@ -12,7 +17,7 @@
 			     			<% University.all.each do |university| %>
 							<li>
 								<%= link_to university do %>
-								  	<%= icon('university') %> <%= university.university_name %>
+								  	<%= icon('university') %> <%= university.description %>
 								<% end %>
 							</li>
 							<% end %>
@@ -32,7 +37,7 @@
 				     		<%= link_to '<i class="fa fa-user-plus"></i> Admin Panel <i class="fa fa-caret-down"></i>'.html_safe, admin_panel_path, :id => 'admindrop', :'data-toggle' => 'dropdown', :class => 'dropdown-toggle' %>
 				     		<ul class="dropdown-menu">
 								<li> <%=link_to '<i class="fa fa-user-plus"></i> User Management'.html_safe, admin_panel_path %> </li>
-								<li> <%=link_to '<i class="fa fa-user-plus"></i> Recent Updates'.html_safe, recent_updates_path %> </li>
+								<li> <%# link_to '<i class="fa fa-user-plus"></i> Recent Updates'.html_safe, recent_updates_path %> </li>
 							</ul>
 						</li>
 					<% end %>

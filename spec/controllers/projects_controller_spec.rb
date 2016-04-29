@@ -23,12 +23,43 @@ RSpec.describe ProjectsController, type: :controller do
   # This should return the minimal set of attributes required to create a valid
   # Project. As you add validations to Project, be sure to
   # adjust the attributes here as well.
+
+  before(:each) do
+    @university = FactoryGirl.create(:university)
+  end
+
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    {
+      title: FFaker::Product.product,
+      abc: "9.99",
+      status: "1",
+      bidding_status: "1",
+      contractor: FFaker::Company.name,
+      progress: "1",
+      tdc: DateTime.now,
+      noa: DateTime.now,
+      ntp: DateTime.now,
+      adc: DateTime.now,
+      cost: "9.99",
+      university_id: @university.id
+    }
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    {
+      title: "",
+      abc: "9.99",
+      status: "1",
+      bidding_status: "1",
+      contractor: FFaker::Company.name,
+      progress: "1",
+      tdc: DateTime.now,
+      noa: DateTime.now,
+      ntp: DateTime.now,
+      adc: DateTime.now,
+      cost: "9.99",
+      university_id: nil,
+    }
   }
 
   # This should return the minimal set of values that should be in the session
@@ -103,14 +134,27 @@ RSpec.describe ProjectsController, type: :controller do
   describe "PUT #update" do
     context "with valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        {
+          title: FFaker::Product.product,
+          abc: "9.99",
+          status: "1",
+          bidding_status: "1",
+          contractor: FFaker::Company.name,
+          progress: "1",
+          tdc: DateTime.now,
+          noa: DateTime.now,
+          ntp: DateTime.now,
+          adc: DateTime.now,
+          cost: "9.99",
+          university_id: @university.id,
+        }
       }
 
       it "updates the requested project" do
         project = Project.create! valid_attributes
         put :update, {:id => project.to_param, :project => new_attributes}, valid_session
         project.reload
-        skip("Add assertions for updated state")
+        expect(assigns(:project).title).to eq(new_attributes[:title])
       end
 
       it "assigns the requested project as @project" do

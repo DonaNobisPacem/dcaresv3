@@ -24,11 +24,15 @@ RSpec.describe UniversitiesController, type: :controller do
   # University. As you add validations to University, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    {
+      description: "University 1"
+    }
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    {
+      description: ""
+    }
   }
 
   # This should return the minimal set of values that should be in the session
@@ -103,14 +107,16 @@ RSpec.describe UniversitiesController, type: :controller do
   describe "PUT #update" do
     context "with valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        {
+          description: "University 2"
+        }
       }
 
       it "updates the requested university" do
         university = University.create! valid_attributes
         put :update, {:id => university.to_param, :university => new_attributes}, valid_session
         university.reload
-        skip("Add assertions for updated state")
+        expect(assigns(:university).description).to eq(new_attributes[:description])
       end
 
       it "assigns the requested university as @university" do

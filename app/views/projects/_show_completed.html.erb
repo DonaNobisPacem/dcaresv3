@@ -1,0 +1,66 @@
+<h1 class="text-center">
+	<strong><%= @project.title %></strong>
+</h1>
+
+<div class="jumbotron">
+
+	<p>
+		<strong>Belongs to: </strong> 
+		<%= link_to @project.university.description, @project.university %> 
+	</p>
+
+	<p>
+		<strong>Status: </strong> 
+		<%= @project.status_desc %> 
+	</p>
+
+	<p>
+		<strong>Approved Budget Ceiling: </strong> 
+		<%= number_with_precision( @project.abc, precision: 2, delimiter: ',' ) if @project.abc.present? %>
+	</p>
+
+	<p>
+		<strong>Actual Cost: </strong> 
+		<%= number_with_precision( @project.cost, precision: 2, delimiter: ',' ) if @project.cost.present? %>
+	</p>
+
+	<p>
+		<strong>Contractor/Supplier: </strong> 
+		<%= @project.contractor %> 
+	</p>
+
+	<p>
+		<strong>Date of Completion: </strong> 
+		<%= @project.adc.try(:strftime, "%d-%^b-%Y") %> 
+	</p>
+
+	<p>
+		<strong>Date of Notice of Award: </strong> 
+		<%= @project.noa.try(:strftime, "%d-%^b-%Y") %>
+	</p>
+
+	<p>
+		<strong>Date of Notice to Proceed: </strong> 
+		<%= @project.ntp.try(:strftime, "%d-%^b-%Y") %>
+	</p>
+
+	<div class="row">
+		<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+			<div class="panel panel-default">
+				<div class="panel-heading" role="tab" id="heading-project-funds">
+					<h4 class="panel-title text-center">
+						<a role="button" data-toggle="collapse" data-parent="#accordion" href="#panel-project-funds">
+							<strong>Source of Funds</strong>
+						</a>
+					</h4>
+				</div>
+				<div id="panel-project-funds" class="panel-collapse collapse" role="tabpanel">
+					<div class="panel-body">
+						<% @project.project_funds.each do |project_fund| %>
+						<% end %>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

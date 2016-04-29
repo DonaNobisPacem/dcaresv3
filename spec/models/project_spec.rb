@@ -46,6 +46,9 @@ RSpec.describe Project, type: :model do
   end
 
   describe "ActiveRecord Validations" do
+    it { should belong_to(:university) }
+    it { should validate_presence_of(:university) }
+
     it { should have_many(:project_funds) }
     it { should have_many(:project_attachments) }
 

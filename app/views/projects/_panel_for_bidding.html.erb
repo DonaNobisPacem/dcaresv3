@@ -1,0 +1,14 @@
+<div class="panel panel-warning">
+  	<div class="panel-heading">
+      <h3 class="panel-header text-center"><strong>For Bidding</strong></h3>
+  	</div>
+  	<div class="panel-body" style="max-height: 800px ;overflow-y: scroll;">
+  		<% @for_bidding.each do |project| %>
+	  		<div class="well well-sm well-custompadding">
+	  			<%= link_to project.title, project %>
+          <br>
+          <small><%= link_to project.university.description, project.university%></small>
+	  		</div>
+  		<% end %>
+  	</div>
+</div>

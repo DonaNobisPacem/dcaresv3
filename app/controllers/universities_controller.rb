@@ -1,5 +1,6 @@
 class UniversitiesController < ApplicationController
   before_action :set_university, only: [:show, :edit, :update, :destroy]
+  before_action :set_projects, only: [:show]
 
   # GET /universities
   # GET /universities.json
@@ -67,6 +68,12 @@ class UniversitiesController < ApplicationController
       @university = University.find(params[:id])
     end
 
+    def set_projects
+      @projects = @university.projects.order('created_at desc')
+      @for_bidding = @projects.where(status: 1)
+      @ongoing = @projects.where(status: 2)
+      @completed = @projects.where(status: 3)
+    end
     # Never trust parameters from the scary internet, only allow the white list through.
     def university_params
       params.require(:university).permit(:description)
