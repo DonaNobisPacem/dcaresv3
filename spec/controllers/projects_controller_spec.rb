@@ -25,6 +25,7 @@ RSpec.describe ProjectsController, type: :controller do
   # adjust the attributes here as well.
 
   before(:each) do
+    allow(controller).to receive(:authenticate_user!).and_return(true)
     @university = FactoryGirl.create(:university)
   end
 
@@ -41,7 +42,18 @@ RSpec.describe ProjectsController, type: :controller do
       ntp: DateTime.now,
       adc: DateTime.now,
       cost: "9.99",
-      university_id: @university.id
+      university_id: @university.id,
+      project_funds_attributes: [
+        {
+          source: "1",
+          amount: "9.99"
+        }
+      ],
+      project_attachments_attributes: [
+        {
+          attachment: Rack::Test::UploadedFile.new(File.join(Rails.root, 'spec', 'files', '1461562681696.jpg'))
+        }
+      ]
     }
   }
 

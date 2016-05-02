@@ -1,6 +1,7 @@
 <h1>Editing University</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Show', @university %> |
-<%= link_to 'Back', universities_path %>
+<% if current_user.admin %>
+	<%= render 'form' %>
+<% else %>
+	<%= render 'shared/unauthorized' %>
+<% end %>
+<%= link_to 'Back', "javascript:history.back()" %>

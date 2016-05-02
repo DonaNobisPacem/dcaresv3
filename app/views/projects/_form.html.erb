@@ -1,22 +1,90 @@
-<%= simple_form_for(@project) do |f| %>
+<%= simple_form_for(@project, html: { multipart: true }) do |f| %>
   <%= f.error_notification %>
 
   <div class="form-inputs">
-    <%= f.input :title %>
-    <%= f.input :abc %>
-    <%= f.input :status %>
-    <%= f.input :bidding_status %>
-    <%= f.input :contractor %>
-    <%= f.input :progress %>
-    <%= f.input :tdc %>
-    <%= f.input :noa %>
-    <%= f.input :ntp %>
-    <%= f.input :adc %>
-    <%= f.input :cost %>
-    <%= f.association :university %>
+    <div class="well">
+      <%= f.input :title, label: "Project Title:" %>
+      <%= f.association :university, label_method: :description, include_blank: false %>
+      <%= f.input :abc, label: "Approved Budget Clearance (PhP):" %>
+      <%= f.input :status, collection: Status.all, label_method: :description, value_method: :id, label: "Project Status", as: :radio_buttons %>
+      <%= f.input :remarks, label: "Remarks:", input_html: {rows: 5} %>
+      <b>Attachments: </b><br>
+      <%= file_field_tag "project_attachments[]", type: :file, multiple: true %>
+    </div>
+
+    <div id="project_fields_for_bidding" class="well" <%if @project.is_for_bidding? %> style="display: block;" <% end %> >
+      <%= f.input :bidding_status, collection: Bid.all, label_method: :description, value_method: :id, label: "Bidding Status", as: :radio_buttons %>
+    </div>
+    <div id="project_fields_ongoing" class="well" <%if @project.is_ongoing? %> style="display: block;" <% end %> >
+      <%= f.input :contractor, label: "Contractors/Suppliers:" %>
+      <%= f.input :progress, label: "Percent Completion:" %>
+      <%= f.input :tdc, label: "Target Completion Date:", as: :date_picker, :placeholder => "DD/MM/YYYY" %>
+      <%= f.input :noa, label: "Date of Notice of Award:", as: :date_picker, :placeholder => "DD/MM/YYYY" %>
+      <%= f.input :ntp, label: "Date of Notice to Proceed:", as: :date_picker, :placeholder => "DD/MM/YYYY" %>
+    </div>
+    <div id="project_fields_completed" class="well" <%if @project.is_completed? %> style="display: block;" <% end %> >
+      <%= f.input :contractor, label: "Contractors/Suppliers:" %>
+      <%= f.input :cost, label: "Actual Cost (PhP):" %>
+      <%= f.input :adc, label: "Actual Completion Date:", as: :date_picker, :placeholder => "DD/MM/YYYY" %>
+      <%= f.input :noa, label: "Date of Notice of Award:", as: :date_picker, :placeholder => "DD/MM/YYYY" %>
+      <%= f.input :ntp, label: "Date of Notice to Proceed:", as: :date_picker, :placeholder => "DD/MM/YYYY" %>
+    </div>
+
+    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+      <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="heading-form-project-funds">
+          <h4 class="panel-title text-center">
+            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#panel-form-project-funds">
+              <strong>Source of Funds</strong>
+            </a>
+          </h4>
+        </div>
+        <div id="panel-form-project-funds" class="panel-collapse collapse" role="tabpanel">
+          <div class="panel-body">
+            <%= f.simple_fields_for :project_funds do |fund| %>
+              <%= render 'project_fund_fields', :f => fund %>
+            <% end %>
+            <%= link_to_add_association '<i class="fa fa-plus"></i> Add Fund Source'.html_safe, f, :project_funds %>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 
   <div class="form-actions">
-    <%= f.button :submit %>
+    <%= f.button :submit, class: "btn btn-success pull-right" %>
   </div>
 <% end %>
+
+<script>
+  // alert("asd");
+  $('input[type=radio][name="project[status]"]').change(function() { 
+  // first: hide all the divs 
+    $('#project_fields_for_bidding').css("display","none"); 
+    $('#project_fields_ongoing').css("display","none"); 
+    $('#project_fields_completed').css("display","none"); 
+  // then get the div ID to show (i stored it in the "value" of the radio button 
+
+
+    var fieldId = $(this).val();
+    // console.log( fieldId );
+    var fieldToShow = "";
+
+    switch (fieldId) {
+      case "1":
+        fieldToShow = "project_fields_for_bidding";
+        break;
+      case "2":
+        fieldToShow = "project_fields_ongoing";
+        break;
+      case "3":
+        fieldToShow = "project_fields_completed";
+        break;
+      default:
+        fieldToShow = "";
+    }
+    // console.log( fieldToShow );
+    $("#" + fieldToShow).css("display","block");
+  });
+</script>

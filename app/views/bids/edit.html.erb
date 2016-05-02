@@ -1,6 +1,7 @@
-<h1>Editing Bid</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Show', @bid %> |
-<%= link_to 'Back', bids_path %>
+<h1>Editing Bidding Status</h1>
+<% if current_user.admin %>
+	<%= render 'form' %>
+<% else %>
+	<%= render 'shared/unauthorized' %>
+<% end %>
+<%= link_to 'Back', "javascript:history.back()" %>

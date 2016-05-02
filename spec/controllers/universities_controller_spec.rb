@@ -23,6 +23,10 @@ RSpec.describe UniversitiesController, type: :controller do
   # This should return the minimal set of attributes required to create a valid
   # University. As you add validations to University, be sure to
   # adjust the attributes here as well.
+  before(:each) do
+    allow(controller).to receive(:authenticate_user!).and_return(true)
+  end
+
   let(:valid_attributes) {
     {
       description: "University 1"
@@ -44,7 +48,7 @@ RSpec.describe UniversitiesController, type: :controller do
     it "assigns all universities as @universities" do
       university = University.create! valid_attributes
       get :index, {}, valid_session
-      expect(assigns(:universities)).to eq([university])
+      expect(assigns(:universities)).to eq(University.all)
     end
   end
 

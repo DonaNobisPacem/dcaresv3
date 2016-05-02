@@ -1,6 +1,7 @@
-<h1>Editing Fund</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Show', @fund %> |
-<%= link_to 'Back', funds_path %>
+<h1>Editing Fund Source</h1>
+<% if current_user.admin %>
+	<%= render 'form' %>
+<% else %>
+	<%= render 'shared/unauthorized' %>
+<% end %>
+<%= link_to 'Back', "javascript:history.back()" %>

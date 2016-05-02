@@ -24,6 +24,7 @@ RSpec.describe ProjectAttachmentsController, type: :controller do
   # ProjectAttachment. As you add validations to ProjectAttachment, be sure to
   # adjust the attributes here as well.
   before(:each) do
+    allow(controller).to receive(:authenticate_user!).and_return(true)
     @project = FactoryGirl.create(:project)
   end
 

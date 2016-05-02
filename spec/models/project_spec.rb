@@ -9,10 +9,10 @@ RSpec.describe Project, type: :model do
   	it { should validate_presence_of(:title) }
   	it { should validate_uniqueness_of(:title) }
 
-  	#it { should validate_presence_of(:abc) }
+  	it { should validate_presence_of(:abc) }
   	it { should validate_numericality_of(:abc).is_greater_than_or_equal_to(0) }
 
-  	#it { should validate_presence_of(:status) }
+  	it { should validate_presence_of(:status) }
   	it { should validate_numericality_of(:status).is_greater_than(0) }
 
   	context "Status is For Bidding" do
@@ -62,6 +62,13 @@ RSpec.describe Project, type: :model do
       project = FactoryGirl.create(:project, status: status.id )
 
   	  expect(project.status_desc).to eq(status.description)
+    end
+
+    it "returns the correct bidding status description" do
+      status = FactoryGirl.create(:bid)
+      project = FactoryGirl.create(:project, bidding_status: status.id )
+
+      expect(project.bidding_status_desc).to eq(status.description)
     end
   end
 end

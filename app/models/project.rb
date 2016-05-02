@@ -9,9 +9,9 @@ class Project < ActiveRecord::Base
   validates :university, presence: true
   validates :title, presence: true, uniqueness: true
   #validates :abc, numericality: { :greater_than_or_equal => 0 }
-  validates :abc, numericality: { :greater_than_or_equal_to => 0, allow_nil: true }
+  validates :abc, numericality: { :greater_than_or_equal_to => 0 }, presence: true
   #validates :status, numericality: { :greater_than => 0 }
-  validates :status, numericality: { :greater_than => 0, allow_nil: true }
+  validates :status, numericality: { :greater_than => 0 }, presence: true
 
   validates_presence_of :bidding_status, if: :is_for_bidding?
 
@@ -41,29 +41,31 @@ class Project < ActiveRecord::Base
   	Status.find(status).description
   end
 
-  private
+  def bidding_status_desc
+    Bid.find(bidding_status).description
+  end
 
-    def is_for_bidding?
-      if status == 1 # || status_desc == "For Bidding"
-      	return true
-      else
-      	return false
-      end
+  def is_for_bidding?
+    if status == 1 # || status_desc == "For Bidding"
+    	return true
+    else
+    	return false
     end
+  end
 
-    def is_ongoing?
-      if status == 2 # || status_desc == "Ongoing"
-      	return true
-      else
-      	return false
-      end
+  def is_ongoing?
+    if status == 2 # || status_desc == "Ongoing"
+    	return true
+    else
+    	return false
     end
+  end
 
-    def is_completed?
-      if status == 3 # || status_desc == "Completed"
-      	return true
-      else
-      	return false
-      end
+  def is_completed?
+    if status == 3 # || status_desc == "Completed"
+    	return true
+    else
+    	return false
     end
+  end
 end

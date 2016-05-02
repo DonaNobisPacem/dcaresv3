@@ -1,6 +1,7 @@
-<h1>Editing Status</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Show', @status %> |
-<%= link_to 'Back', statuses_path %>
+<h1>Editing Project Status</h1>
+<% if current_user.admin %>
+	<%= render 'form' %>
+<% else %>
+	<%= render 'shared/unauthorized' %>
+<% end %>
+<%= link_to 'Back', "javascript:history.back()" %>

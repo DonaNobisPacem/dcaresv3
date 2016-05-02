@@ -23,6 +23,11 @@ RSpec.describe FundsController, type: :controller do
   # This should return the minimal set of attributes required to create a valid
   # Fund. As you add validations to Fund, be sure to
   # adjust the attributes here as well.
+
+  before(:each) do
+    allow(controller).to receive(:authenticate_user!).and_return(true)
+  end
+
   let(:valid_attributes) {
     {
       description: "Funds 1"

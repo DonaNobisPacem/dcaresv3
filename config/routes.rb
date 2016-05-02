@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   end
 
   get '/admin_panel' => 'users#admin'
+  get '/recent_updates' => 'projects#recent_updates'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

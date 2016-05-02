@@ -24,6 +24,7 @@ RSpec.describe ProjectFundsController, type: :controller do
   # ProjectFund. As you add validations to ProjectFund, be sure to
   # adjust the attributes here as well.
   before(:each) do
+    allow(controller).to receive(:authenticate_user!).and_return(true)
     @project = FactoryGirl.create(:project)
   end
 
