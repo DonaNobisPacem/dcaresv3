@@ -18,14 +18,14 @@
     <div id="project_fields_ongoing" class="well" <%if @project.is_ongoing? %> style="display: block;" <% end %> >
       <%= f.input :contractor, label: "Contractors/Suppliers:" %>
       <%= f.input :progress, label: "Percent Completion:" %>
-      <%= f.input :tdc, label: "Target Completion Date:", as: :date_picker, :placeholder => "DD/MM/YYYY" %>
+      <%= f.input :tdc, label: "Target Date of Completion:", as: :date_picker, :placeholder => "DD/MM/YYYY" %>
       <%= f.input :noa, label: "Date of Notice of Award:", as: :date_picker, :placeholder => "DD/MM/YYYY" %>
       <%= f.input :ntp, label: "Date of Notice to Proceed:", as: :date_picker, :placeholder => "DD/MM/YYYY" %>
     </div>
     <div id="project_fields_completed" class="well" <%if @project.is_completed? %> style="display: block;" <% end %> >
       <%= f.input :contractor, label: "Contractors/Suppliers:" %>
       <%= f.input :cost, label: "Actual Cost (PhP):" %>
-      <%= f.input :adc, label: "Actual Completion Date:", as: :date_picker, :placeholder => "DD/MM/YYYY" %>
+      <%= f.input :adc, label: "Actual Date of Completion:", as: :date_picker, :placeholder => "DD/MM/YYYY" %>
       <%= f.input :noa, label: "Date of Notice of Award:", as: :date_picker, :placeholder => "DD/MM/YYYY" %>
       <%= f.input :ntp, label: "Date of Notice to Proceed:", as: :date_picker, :placeholder => "DD/MM/YYYY" %>
     </div>

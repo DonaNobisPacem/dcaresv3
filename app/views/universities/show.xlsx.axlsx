@@ -1,0 +1,92 @@
+wb = xlsx_package.workbook
+
+wb.add_worksheet(name: "For Bidding") do |sheet|
+    sheet.add_row [
+        "Project Title",
+        "Approved Budget Clearance",
+        "Bidding Status",
+        "Remarks",
+        "Source of Funds"
+    ]
+
+    @for_bidding.each do |project|
+        funds = ""
+        project.project_funds.each do |project_fund|
+            funds += project_fund.source_name + " || PhP " + project_fund.amount.to_s + "\n"
+        end
+
+        sheet.add_row [
+            project.title,
+            project.abc,
+            project.bidding_status_desc,
+            project.remarks,
+            funds
+        ]
+    end
+end
+
+wb.add_worksheet(name: "Ongoing") do |sheet|
+    sheet.add_row [
+        "Project Title",
+        "Approved Budget Clearance",
+        "Contractor/Supplier",
+        "Percent Completion",
+        "Target Date of Completion",
+        "Date of Notice of Award",
+        "Date of Notice to Proceed",
+        "Remarks",
+        "Source of Funds"
+    ]
+
+    @ongoing.each do |project|
+        funds = ""
+        project.project_funds.each do |project_fund|
+            funds += project_fund.source_name + " || PhP " + project_fund.amount.to_s + "\n"
+        end
+
+        sheet.add_row [
+            project.title,
+            project.abc,
+            project.contractor,
+            project.progress,
+            project.tdc.try(:strftime, "%d-%^b-%Y"),
+            project.noa.try(:strftime, "%d-%^b-%Y"),
+            project.ntp.try(:strftime, "%d-%^b-%Y"),
+            project.remarks,
+            funds
+        ]
+    end
+end
+
+wb.add_worksheet(name: "Completed") do |sheet|
+    sheet.add_row [
+        "Project Title",
+        "Approved Budget Clearance",
+        "Contractor/Supplier",
+        "Percent Completion",
+        "Actual Date of Completion",
+        "Date of Notice of Award",
+        "Date of Notice to Proceed",
+        "Remarks",
+        "Source of Funds"
+    ]
+
+    @completed.each do |project|
+        funds = ""
+        project.project_funds.each do |project_fund|
+            funds += project_fund.source_name + " || PhP " + project_fund.amount.to_s + "\n"
+        end
+
+        sheet.add_row [
+            project.title,
+            project.abc,
+            project.contractor,
+            project.progress,
+            project.adc.try(:strftime, "%d-%^b-%Y"),
+            project.noa.try(:strftime, "%d-%^b-%Y"),
+            project.ntp.try(:strftime, "%d-%^b-%Y"),
+            project.remarks,
+            funds
+        ]
+    end
+end

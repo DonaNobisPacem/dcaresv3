@@ -11,6 +11,12 @@ class UniversitiesController < ApplicationController
   # GET /universities/1
   # GET /universities/1.json
   def show
+    respond_to do |format|
+      format.html
+      format.xlsx {
+        render xlsx: "show", filename: "#{@university.description}_infrastructures.xlsx"
+      }
+    end
   end
 
   # GET /universities/new
