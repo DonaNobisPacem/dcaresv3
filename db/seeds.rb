@@ -30,55 +30,55 @@ University.create!([
   {description: "UP Visayas"}
 ])
 
-PublicActivity.enabled = false
+# PublicActivity.enabled = false
 
-100.times do
-	Project.create(
-		title: FFaker::Product.product,
-	    abc: "9.99",
-	    status: 1,
-	    bidding_status: 1,
-	    contractor: FFaker::Company.name,
-	    progress: 1,
-	    tdc: DateTime.now,
-	    noa: DateTime.now,
-	    ntp: DateTime.now,
-	    adc: DateTime.now,
-	    cost: "9.99",
-	    university_id: 1 
-	)
-end
+# 100.times do
+# 	Project.create(
+# 		title: FFaker::Product.product,
+# 	    abc: "9.99",
+# 	    status: 1,
+# 	    bidding_status: 1,
+# 	    contractor: FFaker::Company.name,
+# 	    progress: 1,
+# 	    tdc: DateTime.now,
+# 	    noa: DateTime.now,
+# 	    ntp: DateTime.now,
+# 	    adc: DateTime.now,
+# 	    cost: "9.99",
+# 	    university_id: 1 
+# 	)
+# end
 
-100.times do
-	Project.create(
-		title: FFaker::Product.product,
-	    abc: "9.99",
-	    status: 2,
-	    bidding_status: 1,
-	    contractor: FFaker::Company.name,
-	    progress: 1,
-	    tdc: DateTime.now,
-	    noa: DateTime.now,
-	    ntp: DateTime.now,
-	    adc: DateTime.now,
-	    cost: "9.99",
-	    university_id: 1 
-	)
-end
+# 100.times do
+# 	Project.create(
+# 		title: FFaker::Product.product,
+# 	    abc: "9.99",
+# 	    status: 2,
+# 	    bidding_status: 1,
+# 	    contractor: FFaker::Company.name,
+# 	    progress: 1,
+# 	    tdc: DateTime.now,
+# 	    noa: DateTime.now,
+# 	    ntp: DateTime.now,
+# 	    adc: DateTime.now,
+# 	    cost: "9.99",
+# 	    university_id: 1 
+# 	)
+# end
 
-100.times do
-	Project.create(
-		title: FFaker::Product.product,
-	    abc: "9.99",
-	    status: 3,
-	    bidding_status: 1,
-	    contractor: FFaker::Company.name,
-	    progress: 1,
-	    tdc: DateTime.now,
-	    noa: DateTime.now,
-	    ntp: DateTime.now,
-	    adc: DateTime.now,
-	    cost: "9.99",
-	    university_id: 1 
-	)
-end
+# 100.times do
+# 	Project.create(
+# 		title: FFaker::Product.product,
+# 	    abc: "9.99",
+# 	    status: 3,
+# 	    bidding_status: 1,
+# 	    contractor: FFaker::Company.name,
+# 	    progress: 1,
+# 	    tdc: DateTime.now,
+# 	    noa: DateTime.now,
+# 	    ntp: DateTime.now,
+# 	    adc: DateTime.now,
+# 	    cost: "9.99",
+# 	    university_id: 1 
+# 	)
+# end

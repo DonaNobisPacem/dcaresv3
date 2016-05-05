@@ -51,13 +51,13 @@ set :stage, :production
 #
 # The server-based syntax can be used to override options:
 # ------------------------------------
-server '202.52.166.50',
+server '202.52.166.53',
   user: 'sysadmin',
   port: 9922,
   roles: %w{web app db},
   ssh_options: {
     user: 'sysadmin', # overrides user setting above
-    keys: %w(/home/donanobispacem/.ssh/id_rsa_up_alpha),
+    keys: %w(/home/donanobispacem/.ssh/id_rsa_up_gamma),
     forward_agent: false,
     auth_methods: %w(publickey password)
     # password: 'please use keys'
