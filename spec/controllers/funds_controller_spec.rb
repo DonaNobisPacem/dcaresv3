@@ -90,9 +90,9 @@ RSpec.describe FundsController, type: :controller do
         expect(assigns(:fund)).to be_persisted
       end
 
-      it "redirects to the created fund" do
+      it "redirects to the fund index" do
         post :create, {:fund => valid_attributes}, valid_session
-        expect(response).to redirect_to(Fund.last)
+        expect(response).to redirect_to(funds_path)
       end
     end
 
@@ -130,10 +130,10 @@ RSpec.describe FundsController, type: :controller do
         expect(assigns(:fund)).to eq(fund)
       end
 
-      it "redirects to the fund" do
+      it "redirects to the fund index" do
         fund = Fund.create! valid_attributes
         put :update, {:id => fund.to_param, :fund => valid_attributes}, valid_session
-        expect(response).to redirect_to(fund)
+        expect(response).to redirect_to(funds_path)
       end
     end
 

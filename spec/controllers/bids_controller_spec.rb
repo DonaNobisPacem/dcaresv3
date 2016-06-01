@@ -90,9 +90,9 @@ RSpec.describe BidsController, type: :controller do
         expect(assigns(:bid)).to be_persisted
       end
 
-      it "redirects to the created bid" do
+      it "redirects to the bid index" do
         post :create, {:bid => valid_attributes}, valid_session
-        expect(response).to redirect_to(Bid.last)
+        expect(response).to redirect_to(bids_path)
       end
     end
 
@@ -130,10 +130,10 @@ RSpec.describe BidsController, type: :controller do
         expect(assigns(:bid)).to eq(bid)
       end
 
-      it "redirects to the bid" do
+      it "redirects to the bid index" do
         bid = Bid.create! valid_attributes
         put :update, {:id => bid.to_param, :bid => valid_attributes}, valid_session
-        expect(response).to redirect_to(bid)
+        expect(response).to redirect_to(bids_path)
       end
     end
 

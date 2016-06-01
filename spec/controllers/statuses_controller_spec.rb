@@ -89,9 +89,9 @@ RSpec.describe StatusesController, type: :controller do
         expect(assigns(:status)).to be_persisted
       end
 
-      it "redirects to the created status" do
+      it "redirects to the status index" do
         post :create, {:status => valid_attributes}, valid_session
-        expect(response).to redirect_to(Status.last)
+        expect(response).to redirect_to(statuses_path)
       end
     end
 
@@ -129,10 +129,10 @@ RSpec.describe StatusesController, type: :controller do
         expect(assigns(:status)).to eq(status)
       end
 
-      it "redirects to the status" do
+      it "redirects to the status index" do
         status = Status.create! valid_attributes
         put :update, {:id => status.to_param, :status => valid_attributes}, valid_session
-        expect(response).to redirect_to(status)
+        expect(response).to redirect_to(statuses_path)
       end
     end
 

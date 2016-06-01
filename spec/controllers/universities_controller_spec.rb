@@ -89,9 +89,9 @@ RSpec.describe UniversitiesController, type: :controller do
         expect(assigns(:university)).to be_persisted
       end
 
-      it "redirects to the created university" do
+      it "redirects to the university index" do
         post :create, {:university => valid_attributes}, valid_session
-        expect(response).to redirect_to(University.last)
+        expect(response).to redirect_to(universities_path)
       end
     end
 
@@ -129,10 +129,10 @@ RSpec.describe UniversitiesController, type: :controller do
         expect(assigns(:university)).to eq(university)
       end
 
-      it "redirects to the university" do
+      it "redirects to the university index" do
         university = University.create! valid_attributes
         put :update, {:id => university.to_param, :university => valid_attributes}, valid_session
-        expect(response).to redirect_to(university)
+        expect(response).to redirect_to(universities_path)
       end
     end
 
