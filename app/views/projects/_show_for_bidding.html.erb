@@ -15,6 +15,16 @@
 	</p>
 
 	<p>
+		<strong>Classification: </strong> 
+		<%= @project.classification_desc %> 
+	</p>
+
+	<p>
+		<strong>Approved Budget Ceiling: </strong> 
+		<%= number_with_precision( @project.abc, precision: 2, delimiter: ',' ) if @project.abc.present? %>
+	</p>
+
+	<p>
 		<strong>Bidding Status: </strong> 
 		<%= @project.bidding_status_desc %> 
 	</p>

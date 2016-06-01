@@ -25,31 +25,6 @@
 	</p>
 
 	<p>
-		<strong>Actual Cost: </strong> 
-		<%= number_with_precision( @project.cost, precision: 2, delimiter: ',' ) if @project.cost.present? %>
-	</p>
-
-	<p>
-		<strong>Contractor/Supplier: </strong> 
-		<%= @project.contractor %> 
-	</p>
-
-	<p>
-		<strong>Actual Date of Completion: </strong> 
-		<%= @project.adc.try(:strftime, "%d-%^b-%Y") %> 
-	</p>
-
-	<p>
-		<strong>Date of Notice of Award: </strong> 
-		<%= @project.noa.try(:strftime, "%d-%^b-%Y") %>
-	</p>
-
-	<p>
-		<strong>Date of Notice to Proceed: </strong> 
-		<%= @project.ntp.try(:strftime, "%d-%^b-%Y") %>
-	</p>
-
-	<p>
 		<strong>Remarks: </strong> 
 		<% if @project.remarks.present? %>
 			<div class="well well-sm" style="background: white;">

@@ -39,11 +39,16 @@ class Project < ActiveRecord::Base
   accepts_nested_attributes_for :project_attachments, allow_destroy: true	
 
   def status_desc
-  	Status.find(status).description
+  	Status.find_by_id(status) ? Status.find(status).description: "Not Available"
   end
 
+  def classification_desc
+    Classification.find_by_id(classification) ? Classification.find(classification).description : "Not Available"
+  end
+
+
   def bidding_status_desc
-    Bid.find(bidding_status).description
+    Bid.find_by_id(bidding_status) ? Bid.find(bidding_status).description : "Not Available"
   end
 
   def is_for_bidding?

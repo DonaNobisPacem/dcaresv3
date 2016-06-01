@@ -1,6 +1,7 @@
-<h1>Editing Classification</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Show', @classification %> |
-<%= link_to 'Back', classifications_path %>
+<h1>Editing Project Classification</h1>
+<% if current_user.admin %>
+	<%= render 'form' %>
+<% else %>
+	<%= render 'shared/unauthorized' %>
+<% end %>
+<%= link_to 'Back', "javascript:history.back()" %>

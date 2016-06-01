@@ -1,11 +1,13 @@
 <p id="notice"><%= notice %></p>
 
-<% if @project.status_desc == "For Bidding" %>
+<% if @project.status == 1 %>
   <%= render "show_for_bidding" %>
-<% elsif @project.status_desc == "Ongoing" %>
+<% elsif @project.status == 2 %>
   <%= render "show_ongoing" %>
-<% elsif @project.status_desc == "Completed" %>
+<% elsif @project.status == 3 %>
   <%= render "show_completed" %>
+ <% elsif @project.status == 4 %>
+  <%= render "show_funded" %>
 <% else%>
   <h1 class="text-center"><strong>Something has gone wrong.</strong></h1>
 <% end %>
@@ -13,6 +15,7 @@
 <hr>
 
 <div class="pull-right">
-<%= link_to 'Edit', edit_project_path(@project) %> |
-<%= link_to 'Back', "javascript:history.back()" %>
+	<%= link_to 'Edit', edit_project_path(@project) %> |
+	<%= link_to 'Delete', @project, method: :delete, data: { confirm: 'Are you sure?' } %> | 
+	<%= link_to 'Back', "javascript:history.back()" %>
 </div>

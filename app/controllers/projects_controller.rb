@@ -23,6 +23,7 @@ class ProjectsController < ApplicationController
       @for_bidding = Project.search( search, where: where.merge(status: 1), order: {created_at: :desc}, misspellings: false )
       @ongoing = Project.search( search, where: where.merge(status: 2), order: {created_at: :desc}, misspellings: false )
       @completed = Project.search( search, where: where.merge(status: 3), order: {created_at: :desc}, misspellings: false )
+      @funding = Project.search( search, where: where.merge(status: 4), order: {created_at: :desc}, misspellings: false )
 
       # @ingoing = Document.search( search, where: where.merge(:outgoing => false), order: {created_at: :desc}, misspellings: false )
       # @outgoing = Document.search( search, where: where.merge(:outgoing => true), order: {created_at: :desc}, misspellings: false )
@@ -32,6 +33,7 @@ class ProjectsController < ApplicationController
       @for_bidding = @projects.where(status: 1).order('created_at desc')
       @ongoing = @projects.where(status: 2).order('created_at desc')
       @completed = @projects.where(status: 3).order('created_at desc')
+      @funding = @projects.where(status: 4).order('created_at desc')
     end
 
     respond_to do |format|

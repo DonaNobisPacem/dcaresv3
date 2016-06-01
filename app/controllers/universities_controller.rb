@@ -76,9 +76,10 @@ class UniversitiesController < ApplicationController
 
     def set_projects
       @projects = @university.projects.order('created_at desc')
-      @for_bidding = @projects.where(status: 1)
-      @ongoing = @projects.where(status: 2)
-      @completed = @projects.where(status: 3)
+      @for_bidding = @projects.where(status: 1).order('created_at desc')
+      @ongoing = @projects.where(status: 2).order('created_at desc')
+      @completed = @projects.where(status: 3).order('created_at desc')
+      @funding = @projects.where(status: 4).order('created_at desc')
     end
     # Never trust parameters from the scary internet, only allow the white list through.
     def university_params
