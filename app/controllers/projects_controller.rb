@@ -126,6 +126,7 @@ class ProjectsController < ApplicationController
         :title, 
         :abc, 
         :status, 
+        :classification,
         :bidding_status, 
         :contractor, 
         :progress, 

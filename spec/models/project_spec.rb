@@ -15,6 +15,15 @@ RSpec.describe Project, type: :model do
   	it { should validate_presence_of(:status) }
   	it { should validate_numericality_of(:status).is_greater_than(0) }
 
+    it { should validate_presence_of(:classification) }
+    it { should validate_numericality_of(:classification).is_greater_than(0) }
+
+    context "Status is Funded" do
+      before(:each) { allow(subject).to receive(:is_funded?).and_return(true) }
+
+      #Nothing as of yet
+    end
+
   	context "Status is For Bidding" do
   	  before(:each) { allow(subject).to receive(:is_for_bidding?).and_return(true) }
 

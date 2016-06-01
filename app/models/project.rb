@@ -12,6 +12,7 @@ class Project < ActiveRecord::Base
   validates :abc, numericality: { :greater_than_or_equal_to => 0 }, presence: true
   #validates :status, numericality: { :greater_than => 0 }
   validates :status, numericality: { :greater_than => 0 }, presence: true
+  validates :classification, numericality: { :greater_than => 0 }, presence: true
 
   validates_presence_of :bidding_status, if: :is_for_bidding?
 
@@ -66,6 +67,14 @@ class Project < ActiveRecord::Base
     	return true
     else
     	return false
+    end
+  end
+
+  def is_funded?
+    if status == 4 # || status_desc == "Funded"
+      return true
+    else
+      return false
     end
   end
 end

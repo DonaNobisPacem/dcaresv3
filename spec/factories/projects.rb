@@ -3,6 +3,7 @@ FactoryGirl.define do
     title {FFaker::Product.product}
     abc "9.99"
     status 1
+    classification 1
     bidding_status 1
     contractor {FFaker::Company.name}
     progress 1
