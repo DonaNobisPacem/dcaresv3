@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Component Funds</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Source</th>
+      <th>Amount</th>
+      <th>Component</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @component_funds.each do |component_fund| %>
+      <tr>
+        <td><%= component_fund.source %></td>
+        <td><%= component_fund.amount %></td>
+        <td><%= component_fund.component %></td>
+        <td><%= link_to 'Show', component_fund %></td>
+        <td><%= link_to 'Edit', edit_component_fund_path(component_fund) %></td>
+        <td><%= link_to 'Destroy', component_fund, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Component fund', new_component_fund_path %>

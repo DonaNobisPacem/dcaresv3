@@ -1,0 +1,24 @@
+<%= simple_form_for(@component) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.association :project %>
+    <%= f.input :title %>
+    <%= f.input :abc %>
+    <%= f.input :status %>
+    <%= f.input :classification %>
+    <%= f.input :bidding_status %>
+    <%= f.input :contractor %>
+    <%= f.input :progress %>
+    <%= f.input :tdc %>
+    <%= f.input :noa %>
+    <%= f.input :ntp %>
+    <%= f.input :adc %>
+    <%= f.input :cost %>
+    <%= f.input :remarks %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

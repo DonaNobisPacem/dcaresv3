@@ -1,5 +1,6 @@
 FactoryGirl.define do
-  factory :project do
+  factory :component do
+    project
     title {FFaker::Product.product}
     abc "9.99"
     status 1
@@ -13,6 +14,5 @@ FactoryGirl.define do
     adc DateTime.now
     cost "9.99"
     remarks {FFaker::BaconIpsum.paragraph}
-    university
   end
 end

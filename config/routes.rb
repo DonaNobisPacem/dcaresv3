@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
   
+  resources :component_attachments
+  resources :component_funds
+  resources :components
   resources :classifications
   resources :bids
   root 'universities#index'

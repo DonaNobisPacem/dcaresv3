@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160601055821) do
+ActiveRecord::Schema.define(version: 20160606022819) do
 
   create_table "activities", force: :cascade do |t|
     t.integer  "trackable_id",   limit: 4
@@ -41,6 +41,46 @@ ActiveRecord::Schema.define(version: 20160601055821) do
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
   end
+
+  create_table "component_attachments", force: :cascade do |t|
+    t.string   "attachment",   limit: 255
+    t.integer  "component_id", limit: 4
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
+  add_index "component_attachments", ["component_id"], name: "index_component_attachments_on_component_id", using: :btree
+
+  create_table "component_funds", force: :cascade do |t|
+    t.integer  "source",       limit: 4
+    t.decimal  "amount",                 precision: 15, scale: 2
+    t.integer  "component_id", limit: 4
+    t.datetime "created_at",                                      null: false
+    t.datetime "updated_at",                                      null: false
+  end
+
+  add_index "component_funds", ["component_id"], name: "index_component_funds_on_component_id", using: :btree
+
+  create_table "components", force: :cascade do |t|
+    t.integer  "project_id",     limit: 4
+    t.string   "title",          limit: 255
+    t.decimal  "abc",                          precision: 15, scale: 2
+    t.integer  "status",         limit: 4
+    t.integer  "classification", limit: 4
+    t.integer  "bidding_status", limit: 4
+    t.string   "contractor",     limit: 255
+    t.integer  "progress",       limit: 4
+    t.datetime "tdc"
+    t.datetime "noa"
+    t.datetime "ntp"
+    t.datetime "adc"
+    t.decimal  "cost",                         precision: 15, scale: 2
+    t.text     "remarks",        limit: 65535
+    t.datetime "created_at",                                            null: false
+    t.datetime "updated_at",                                            null: false
+  end
+
+  add_index "components", ["project_id"], name: "index_components_on_project_id", using: :btree
 
   create_table "funds", force: :cascade do |t|
     t.string   "description", limit: 255
@@ -120,6 +160,9 @@ ActiveRecord::Schema.define(version: 20160601055821) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "component_attachments", "components"
+  add_foreign_key "component_funds", "components"
+  add_foreign_key "components", "projects"
   add_foreign_key "project_attachments", "projects"
   add_foreign_key "project_funds", "projects"
   add_foreign_key "projects", "universities"

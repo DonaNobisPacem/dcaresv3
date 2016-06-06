@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Source:</strong>
+  <%= @component_fund.source %>
+</p>
+
+<p>
+  <strong>Amount:</strong>
+  <%= @component_fund.amount %>
+</p>
+
+<p>
+  <strong>Component:</strong>
+  <%= @component_fund.component %>
+</p>
+
+<%= link_to 'Edit', edit_component_fund_path(@component_fund) %> |
+<%= link_to 'Back', component_funds_path %>

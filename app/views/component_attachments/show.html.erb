@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Attachment:</strong>
+  <%= @component_attachment.attachment %>
+</p>
+
+<p>
+  <strong>Component:</strong>
+  <%= @component_attachment.component %>
+</p>
+
+<%= link_to 'Edit', edit_component_attachment_path(@component_attachment) %> |
+<%= link_to 'Back', component_attachments_path %>

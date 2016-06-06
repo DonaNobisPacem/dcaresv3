@@ -1,0 +1,53 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Components</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Project</th>
+      <th>Title</th>
+      <th>Abc</th>
+      <th>Status</th>
+      <th>Classification</th>
+      <th>Bidding status</th>
+      <th>Contractor</th>
+      <th>Progress</th>
+      <th>Tdc</th>
+      <th>Noa</th>
+      <th>Ntp</th>
+      <th>Adc</th>
+      <th>Cost</th>
+      <th>Remarks</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @components.each do |component| %>
+      <tr>
+        <td><%= component.project %></td>
+        <td><%= component.title %></td>
+        <td><%= component.abc %></td>
+        <td><%= component.status %></td>
+        <td><%= component.classification %></td>
+        <td><%= component.bidding_status %></td>
+        <td><%= component.contractor %></td>
+        <td><%= component.progress %></td>
+        <td><%= component.tdc %></td>
+        <td><%= component.noa %></td>
+        <td><%= component.ntp %></td>
+        <td><%= component.adc %></td>
+        <td><%= component.cost %></td>
+        <td><%= component.remarks %></td>
+        <td><%= link_to 'Show', component %></td>
+        <td><%= link_to 'Edit', edit_component_path(component) %></td>
+        <td><%= link_to 'Destroy', component, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Component', new_component_path %>
