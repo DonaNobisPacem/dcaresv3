@@ -1,24 +1,110 @@
-<%= simple_form_for(@component) do |f| %>
+<%= simple_form_for(@component, html: { multipart: true }) do |f| %>
   <%= f.error_notification %>
 
   <div class="form-inputs">
-    <%= f.association :project %>
-    <%= f.input :title %>
-    <%= f.input :abc %>
-    <%= f.input :status %>
-    <%= f.input :classification %>
-    <%= f.input :bidding_status %>
-    <%= f.input :contractor %>
-    <%= f.input :progress %>
-    <%= f.input :tdc %>
-    <%= f.input :noa %>
-    <%= f.input :ntp %>
-    <%= f.input :adc %>
-    <%= f.input :cost %>
-    <%= f.input :remarks %>
+    <div class="well">
+      <%= f.input :title, label: "Component Title:" %>
+      <% if params[:component].present? && params[:component][:project_id].present? %>
+        <%= f.association :project, label_method: :title, include_blank: false, selected: params[:component][:project_id] %>
+      <% else %>
+        <%= f.association :project, label_method: :title, include_blank: false %>
+      <% end %>
+      <%= f.input :abc, label: "Approved Budget Clearance (PhP):" %>
+      <%= f.input :status, collection: Status.all, label_method: :description, value_method: :id, label: "Component Status", as: :radio_buttons %>
+      <%= f.input :classification, collection: Classification.all, label_method: :description, value_method: :id, label: "Component Classification", as: :radio_buttons %>
+      <%= f.input :remarks, label: "Remarks:", input_html: {rows: 5} %>
+      <b>Attachments: </b><br>
+      <%= file_field_tag "component_attachments[]", type: :file, multiple: true %>
+    </div>
+
+    <div id="component_fields_for_bidding" class="well conditional_for_bidding_form" <%if @component.is_for_bidding? %> style="display: block;" <% end %> >
+      <%= f.input :bidding_status, collection: Bid.all, label_method: :description, value_method: :id, label: "Bidding Status", as: :radio_buttons %>
+    </div>
+    <div id="component_fields_ongoing" class="well conditional_ongoing_form" <%if @component.is_ongoing? %> style="display: block;" <% end %> >
+      <%= f.input :contractor, label: "Contractors/Suppliers:" %>
+      <%= f.input :progress, label: "Percent Completion:" %>
+      <%= f.input :tdc, label: "Target Date of Completion:", as: :date_picker, :placeholder => "DD/MM/YYYY" %>
+      <%= f.input :noa, label: "Date of Notice of Award:", as: :date_picker, :placeholder => "DD/MM/YYYY" %>
+      <%= f.input :ntp, label: "Date of Notice to Proceed:", as: :date_picker, :placeholder => "DD/MM/YYYY" %>
+    </div>
+    <div id="component_fields_completed" class="well conditional_completed_form" <%if @component.is_completed? %> style="display: block;" <% end %> >
+      <%= f.input :contractor, label: "Contractors/Suppliers:" %>
+      <%= f.input :cost, label: "Actual Cost (PhP):" %>
+      <%= f.input :adc, label: "Actual Date of Completion:", as: :date_picker, :placeholder => "DD/MM/YYYY" %>
+      <%= f.input :noa, label: "Date of Notice of Award:", as: :date_picker, :placeholder => "DD/MM/YYYY" %>
+      <%= f.input :ntp, label: "Date of Notice to Proceed:", as: :date_picker, :placeholder => "DD/MM/YYYY" %>
+    </div>
+    <div id="component_fields_funded" class="well conditional_funding_form" <%if @component.is_funded? %> style="display: block;" <% end %> >
+    </div>
+
+    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+      <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="heading-form-component-funds">
+          <h4 class="panel-title text-center">
+            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#panel-form-component-funds">
+              <strong>Source of Funds</strong>
+            </a>
+          </h4>
+        </div>
+        <div id="panel-form-component-funds" class="panel-collapse collapse" role="tabpanel">
+          <div class="panel-body">
+            <%= f.simple_fields_for :component_funds do |fund| %>
+              <%= render 'component_fund_fields', :f => fund %>
+            <% end %>
+            <%= link_to_add_association '<i class="fa fa-plus"></i> Add Fund Source'.html_safe, f, :component_funds %>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 
   <div class="form-actions">
-    <%= f.button :submit %>
+    <%= f.button :submit, class: "btn btn-success pull-right" %>
   </div>
 <% end %>
+
+<script>
+  // alert("asd");
+  $('input[type=radio][name="component[status]"]').change(function() { 
+  // first: hide all the divs 
+    $('#component_fields_for_bidding').css("display","none"); 
+    $('#component_fields_ongoing').css("display","none"); 
+    $('#component_fields_completed').css("display","none"); 
+    $('#component_fields_funded').css("display","none"); 
+    $('.conditional_funding_form :input').prop('disabled', true);
+    $('.conditional_for_bidding_form :input').prop('disabled', true);
+    $('.conditional_ongoing_form :input').prop('disabled', true);
+    $('.conditional_completed_form :input').prop('disabled', true); 
+  // then get the div ID to show (i stored it in the "value" of the radio button 
+
+
+    var fieldId = $(this).val();
+    // console.log( fieldId );
+    var fieldToShow = "";
+
+    switch (fieldId) {
+      case "1":
+        fieldToShow = "component_fields_for_bidding";
+        $('.conditional_for_bidding_form :input').prop('disabled', false);
+        break;
+      case "2":
+        fieldToShow = "component_fields_ongoing";
+        $('.conditional_ongoing_form :input').prop('disabled', false);
+        break;
+      case "3":
+        fieldToShow = "component_fields_completed";
+        $('.conditional_completed_form :input').prop('disabled', false); 
+        break;
+      // case "4":
+      //  fieldToShow = "component_fields_funded";
+      //  $('.conditional_completed_form :input').prop('disabled', false); 
+      //  break;
+      default:
+        fieldToShow = "";
+    }
+    // console.log( fieldToShow );
+    $("#" + fieldToShow).css("display","block");
+    // $('#' + fieldToShow + ' :input').prop('disabled', false);
+  });
+</script>

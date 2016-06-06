@@ -1,74 +1,21 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Project:</strong>
-  <%= @component.project %>
-</p>
+<% if @component.status == 1 %>
+  <%= render "show_for_bidding" %>
+<% elsif @component.status == 2 %>
+  <%= render "show_ongoing" %>
+<% elsif @component.status == 3 %>
+  <%= render "show_completed" %>
+ <% elsif @component.status == 4 %>
+  <%= render "show_funded" %>
+<% else%>
+  <h1 class="text-center"><strong>Something has gone wrong.</strong></h1>
+<% end %>
 
-<p>
-  <strong>Title:</strong>
-  <%= @component.title %>
-</p>
+<hr>
 
-<p>
-  <strong>Abc:</strong>
-  <%= @component.abc %>
-</p>
-
-<p>
-  <strong>Status:</strong>
-  <%= @component.status %>
-</p>
-
-<p>
-  <strong>Classification:</strong>
-  <%= @component.classification %>
-</p>
-
-<p>
-  <strong>Bidding status:</strong>
-  <%= @component.bidding_status %>
-</p>
-
-<p>
-  <strong>Contractor:</strong>
-  <%= @component.contractor %>
-</p>
-
-<p>
-  <strong>Progress:</strong>
-  <%= @component.progress %>
-</p>
-
-<p>
-  <strong>Tdc:</strong>
-  <%= @component.tdc %>
-</p>
-
-<p>
-  <strong>Noa:</strong>
-  <%= @component.noa %>
-</p>
-
-<p>
-  <strong>Ntp:</strong>
-  <%= @component.ntp %>
-</p>
-
-<p>
-  <strong>Adc:</strong>
-  <%= @component.adc %>
-</p>
-
-<p>
-  <strong>Cost:</strong>
-  <%= @component.cost %>
-</p>
-
-<p>
-  <strong>Remarks:</strong>
-  <%= @component.remarks %>
-</p>
-
-<%= link_to 'Edit', edit_component_path(@component) %> |
-<%= link_to 'Back', components_path %>
+<div class="pull-right">
+  <%= link_to 'Edit', edit_component_path(@component) %> |
+  <%= link_to 'Delete', @component, method: :delete, data: { confirm: 'Are you sure?' } %> | 
+  <%= link_to 'Back', "javascript:history.back()" %>
+</div>

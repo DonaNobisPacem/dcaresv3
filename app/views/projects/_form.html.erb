@@ -13,24 +13,24 @@
       <%= file_field_tag "project_attachments[]", type: :file, multiple: true %>
     </div>
 
-    <div id="project_fields_for_bidding" class="well" <%if @project.is_for_bidding? %> style="display: block;" <% end %> >
+    <div id="project_fields_for_bidding" class="well conditional_for_bidding_form" <%if @project.is_for_bidding? %> style="display: block;" <% end %> >
       <%= f.input :bidding_status, collection: Bid.all, label_method: :description, value_method: :id, label: "Bidding Status", as: :radio_buttons %>
     </div>
-    <div id="project_fields_ongoing" class="well" <%if @project.is_ongoing? %> style="display: block;" <% end %> >
+    <div id="project_fields_ongoing" class="well conditional_ongoing_form" <%if @project.is_ongoing? %> style="display: block;" <% end %> >
       <%= f.input :contractor, label: "Contractors/Suppliers:" %>
       <%= f.input :progress, label: "Percent Completion:" %>
       <%= f.input :tdc, label: "Target Date of Completion:", as: :date_picker, :placeholder => "DD/MM/YYYY" %>
       <%= f.input :noa, label: "Date of Notice of Award:", as: :date_picker, :placeholder => "DD/MM/YYYY" %>
       <%= f.input :ntp, label: "Date of Notice to Proceed:", as: :date_picker, :placeholder => "DD/MM/YYYY" %>
     </div>
-    <div id="project_fields_completed" class="well" <%if @project.is_completed? %> style="display: block;" <% end %> >
+    <div id="project_fields_completed" class="well conditional_completed_form" <%if @project.is_completed? %> style="display: block;" <% end %> >
       <%= f.input :contractor, label: "Contractors/Suppliers:" %>
       <%= f.input :cost, label: "Actual Cost (PhP):" %>
       <%= f.input :adc, label: "Actual Date of Completion:", as: :date_picker, :placeholder => "DD/MM/YYYY" %>
       <%= f.input :noa, label: "Date of Notice of Award:", as: :date_picker, :placeholder => "DD/MM/YYYY" %>
       <%= f.input :ntp, label: "Date of Notice to Proceed:", as: :date_picker, :placeholder => "DD/MM/YYYY" %>
     </div>
-    <div id="project_fields_funded" class="well" <%if @project.is_funded? %> style="display: block;" <% end %> >
+    <div id="project_fields_funded" class="well conditional_funding_form" <%if @project.is_funded? %> style="display: block;" <% end %> >
     </div>
 
     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
@@ -68,6 +68,10 @@
     $('#project_fields_ongoing').css("display","none"); 
     $('#project_fields_completed').css("display","none"); 
     $('#project_fields_funded').css("display","none"); 
+    $('.conditional_funding_form :input').prop('disabled', true);
+    $('.conditional_for_bidding_form :input').prop('disabled', true);
+    $('.conditional_ongoing_form :input').prop('disabled', true);
+    $('.conditional_completed_form :input').prop('disabled', true); 
   // then get the div ID to show (i stored it in the "value" of the radio button 
 
 
@@ -78,20 +82,25 @@
     switch (fieldId) {
       case "1":
         fieldToShow = "project_fields_for_bidding";
+        $('.conditional_for_bidding_form :input').prop('disabled', false);
         break;
       case "2":
         fieldToShow = "project_fields_ongoing";
+        $('.conditional_ongoing_form :input').prop('disabled', false);
         break;
       case "3":
         fieldToShow = "project_fields_completed";
+        $('.conditional_completed_form :input').prop('disabled', false); 
         break;
       // case "4":
       //  fieldToShow = "project_fields_funded";
+      //  $('.conditional_completed_form :input').prop('disabled', false); 
       //  break;
       default:
         fieldToShow = "";
     }
     // console.log( fieldToShow );
     $("#" + fieldToShow).css("display","block");
+    // $('#' + fieldToShow + ' :input').prop('disabled', false);
   });
 </script>

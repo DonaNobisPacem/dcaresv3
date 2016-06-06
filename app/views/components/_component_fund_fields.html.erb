@@ -1,0 +1,13 @@
+<div class="nested-fields">
+	<div class="col-xs-12">
+		<div class="col-xs-5">
+			<%= f.input :source, collection: Fund.all.order(:description), label_method: :description, include_blank: true, label: "Fund Source:" %>
+		</div>
+		<div class="col-xs-5">
+			<%= f.input :amount, label: "Amount (PhP):" %>
+		</div>
+		<div class="col-xs-2">
+			<%= link_to_remove_association '<i class="fa fa-remove"></i> Remove'.html_safe, f %>
+		</div>
+	</div>
+</div>

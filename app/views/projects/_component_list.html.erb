@@ -1,0 +1,63 @@
+<div class="text-center">
+	<%= link_to '<i class="fa fa-plus"></i> New Component'.html_safe, new_component_path( component: { project_id: @project.id } ) %>
+	<%# link_to '<i class="fa fa-table"></i> Export to Excel'.html_safe, university_path(@university, format: "xlsx") %>
+</div>
+<hr>
+<div class="row">
+	<div class="col-md-3">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-header text-center"><strong><%= Status.find(4).description %></strong></h3>
+			</div>
+			<div class="panel-body" style="max-height: 800px ;overflow-y: scroll;">
+				<% @funding.each do |component| %>
+					<div class="well well-sm well-custompadding">
+						<%= link_to component.title, component %>
+					</div>
+				<% end %>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-3">
+		<div class="panel panel-warning">
+			<div class="panel-heading">
+				<h3 class="panel-header text-center"><strong><%= Status.find(1).description %></strong></h3>
+			</div>
+			<div class="panel-body" style="max-height: 800px ;overflow-y: scroll;">
+				<% @for_bidding.each do |component| %>
+					<div class="well well-sm well-custompadding">
+						<%= link_to component.title, component %>
+					</div>
+				<% end %>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-3">
+		<div class="panel panel-success">
+			<div class="panel-heading">
+				<h3 class="panel-header text-center"><strong><%= Status.find(2).description %></strong></h3>
+			</div>
+			<div class="panel-body" style="max-height: 800px ;overflow-y: scroll;">
+				<% @ongoing.each do |component| %>
+					<div class="well well-sm well-custompadding">
+						<%= link_to component.title, component %>
+					</div>
+				<% end %>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-3">
+		<div class="panel panel-info">
+			<div class="panel-heading">
+				<h3 class="panel-header text-center"><strong><%= Status.find(3).description %></strong></h3>
+			</div>
+			<div class="panel-body" style="max-height: 800px ;overflow-y: scroll;">
+				<% @completed.each do |component| %>
+					<div class="well well-sm well-custompadding">
+						<%= link_to component.title, component %>
+					</div>
+				<% end %>
+			</div>
+		</div>
+	</div>
+</div>

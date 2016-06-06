@@ -43,6 +43,11 @@ class ProjectsController < ApplicationController
   # GET /projects/1
   # GET /projects/1.json
   def show
+    @components = @project.components
+    @for_bidding = @components.where(status: 1).order('created_at desc')
+    @ongoing = @components.where(status: 2).order('created_at desc')
+    @completed = @components.where(status: 3).order('created_at desc')
+    @funding = @components.where(status: 4).order('created_at desc')
   end
 
   # GET /projects/new
