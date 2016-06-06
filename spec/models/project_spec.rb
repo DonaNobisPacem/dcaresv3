@@ -60,9 +60,11 @@ RSpec.describe Project, type: :model do
 
     it { should have_many(:project_funds) }
     it { should have_many(:project_attachments) }
+    it { should have_many(:components) }
 
     it { should accept_nested_attributes_for(:project_funds).allow_destroy(true) }
     it { should accept_nested_attributes_for(:project_attachments).allow_destroy(true) }
+    it { should accept_nested_attributes_for(:components).allow_destroy(true) }
   end
 
   describe "Custom functions validations" do

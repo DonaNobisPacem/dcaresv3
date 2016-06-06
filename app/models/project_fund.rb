@@ -6,6 +6,6 @@ class ProjectFund < ActiveRecord::Base
   validates :amount, numericality: { greater_than_or_equal_to: 0, allow_nil: true }
 
   def source_name
-  	Fund.find(source).description
+  	Fund.find_by_id(source) ? Fund.find(source).description : "Not Available"
   end
 end

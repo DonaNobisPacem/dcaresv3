@@ -34,9 +34,11 @@ class Project < ActiveRecord::Base
 
   has_many :project_funds, dependent: :destroy, inverse_of: :project
   has_many :project_attachments, dependent: :destroy, inverse_of: :project
+  has_many :components, dependent: :destroy, inverse_of: :project
 
   accepts_nested_attributes_for :project_funds, allow_destroy: true
-  accepts_nested_attributes_for :project_attachments, allow_destroy: true	
+  accepts_nested_attributes_for :project_attachments, allow_destroy: true
+  accepts_nested_attributes_for :components, allow_destroy: true	
 
   def status_desc
   	Status.find_by_id(status) ? Status.find(status).description: "Not Available"

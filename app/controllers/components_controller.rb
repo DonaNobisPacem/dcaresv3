@@ -5,6 +5,10 @@ class ComponentsController < ApplicationController
   # GET /components.json
   def index
     @components = Component.all
+    @for_bidding = @components.where(status: 1).order('created_at desc')
+    @ongoing = @components.where(status: 2).order('created_at desc')
+    @completed = @components.where(status: 3).order('created_at desc')
+    @funding = @components.where(status: 4).order('created_at desc')
   end
 
   # GET /components/1
@@ -15,10 +19,12 @@ class ComponentsController < ApplicationController
   # GET /components/new
   def new
     @component = Component.new
+    @component_attachment = @component.component_attachments.build
   end
 
   # GET /components/1/edit
   def edit
+    @component_attachment = @component.component_attachments.build unless @component.component_attachments.count > 0
   end
 
   # POST /components
@@ -28,6 +34,12 @@ class ComponentsController < ApplicationController
 
     respond_to do |format|
       if @component.save
+        if params[:component_attachments]
+          params[:component_attachments].each do |a|
+            # logger.debug "New attachment: #{a}"
+            @component_attachment = @component.component_attachments.create!(attachment: a)
+          end
+        end
         format.html { redirect_to @component, notice: 'Component was successfully created.' }
         format.json { render :show, status: :created, location: @component }
       else
@@ -42,6 +54,12 @@ class ComponentsController < ApplicationController
   def update
     respond_to do |format|
       if @component.update(component_params)
+        if params[:component_attachments]
+          params[:component_attachments].each do |a|
+            # logger.debug "New attachment: #{a}"
+            @component_attachment = @component.component_attachments.create!(attachment: a)
+          end
+        end
         format.html { redirect_to @component, notice: 'Component was successfully updated.' }
         format.json { render :show, status: :ok, location: @component }
       else
@@ -69,6 +87,34 @@ class ComponentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def component_params
-      params.require(:component).permit(:project_id, :title, :abc, :status, :classification, :bidding_status, :contractor, :progress, :tdc, :noa, :ntp, :adc, :cost, :remarks)
+      params.require(:component).permit(
+        :project_id, 
+        :title, 
+        :abc, 
+        :status, 
+        :classification, 
+        :bidding_status, 
+        :contractor, 
+        :progress, 
+        :tdc, 
+        :noa, 
+        :ntp, 
+        :adc, 
+        :cost, 
+        :remarks,
+        component_attachments_attributes: [
+          :id,
+          :attachment,
+          :component_id,
+          :_destroy
+        ],
+        component_funds_attributes: [
+          :id,
+          :source,
+          :amount,
+          :component_id,
+          :_destroy
+        ]
+      )
     end
 end

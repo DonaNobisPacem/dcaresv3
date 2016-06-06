@@ -23,12 +23,23 @@ RSpec.describe ComponentAttachmentsController, type: :controller do
   # This should return the minimal set of attributes required to create a valid
   # ComponentAttachment. As you add validations to ComponentAttachment, be sure to
   # adjust the attributes here as well.
+  before(:each) do
+    allow(controller).to receive(:authenticate_user!).and_return(true)
+    @component = FactoryGirl.create(:component)
+  end
+
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    {
+      attachment: Rack::Test::UploadedFile.new(File.join(Rails.root, 'spec', 'files', '1461562681696.jpg')),
+      component_id: @component.id
+    }
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    {
+      attachment: "",
+      component_id: nil
+    }
   }
 
   # This should return the minimal set of values that should be in the session
@@ -103,7 +114,10 @@ RSpec.describe ComponentAttachmentsController, type: :controller do
   describe "PUT #update" do
     context "with valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        {
+          attachment: Rack::Test::UploadedFile.new(File.join(Rails.root, 'spec', 'files', '1442192396440.png')),
+          component_id: @component.id
+        }
       }
 
       it "updates the requested component_attachment" do

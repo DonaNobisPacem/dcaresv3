@@ -23,12 +23,25 @@ RSpec.describe ComponentFundsController, type: :controller do
   # This should return the minimal set of attributes required to create a valid
   # ComponentFund. As you add validations to ComponentFund, be sure to
   # adjust the attributes here as well.
+  before(:each) do
+    allow(controller).to receive(:authenticate_user!).and_return(true)
+    @component = FactoryGirl.create(:component)
+  end
+
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    {
+      source: 1,
+      amount: "9.99",
+      component_id: @component.id
+    }
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    {
+      source: nil,
+      amount: "9.99",
+      component_id: nil
+    }
   }
 
   # This should return the minimal set of values that should be in the session
@@ -103,14 +116,18 @@ RSpec.describe ComponentFundsController, type: :controller do
   describe "PUT #update" do
     context "with valid params" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        {
+          source: 2,
+          amount: "9.99",
+          component_id: @component.id
+        }
       }
 
       it "updates the requested component_fund" do
         component_fund = ComponentFund.create! valid_attributes
         put :update, {:id => component_fund.to_param, :component_fund => new_attributes}, valid_session
         component_fund.reload
-        skip("Add assertions for updated state")
+        expect(assigns(:component_fund).source).to eq(new_attributes[:source])
       end
 
       it "assigns the requested component_fund as @component_fund" do

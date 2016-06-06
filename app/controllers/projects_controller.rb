@@ -4,10 +4,6 @@ class ProjectsController < ApplicationController
   # GET /projects
   # GET /projects.json
   def index
-    
-  end
-
-  def index
     if params[:search].present?
 
       search = params[:search].present? ? params[:search] : "*"
