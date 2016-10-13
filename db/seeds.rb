@@ -10,6 +10,13 @@
 Status.create(description: "For Bidding")
 Status.create(description: "Ongoing")
 Status.create(description: "Completed")
+Status.create(description: "Funded")
+
+Classification.create(description: "New Building/Annex")
+Classification.create(description: "New Facility within an Existing Building")
+Classification.create(description: "Renovation/Rehabilitation")
+Classification.create(description: "Equipment")
+Classification.create(description: "Roads and Other Civil Works")
 
 Bid.create(description: "Pre-Procurement")
 Bid.create(description: "Pre-Bidding")
@@ -28,6 +35,20 @@ University.create!([
   {description: "UP System"},
   {description: "UP Visayas"}
 ])
+
+Fund.create!([
+    {description: "GAA 2012"},
+    {description: "GAA 2013"},
+    {description: "GAA 2014"},
+    {description: "GAA 2015"},
+    {description: "GAA 2016"},
+    {description: "CHED-DAP"},
+    {description: "CIDP"},
+    {description: "CU-RF"},
+    {description: "UPS-RF",},
+    {description: "UGTFI"},
+    {description: "DPWH GAA 2013"}
+  ])
 
 # PublicActivity.enabled = false
 
